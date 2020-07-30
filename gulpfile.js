@@ -1,12 +1,15 @@
 // Initialize modules
-var gulp = require('gulp');
-var sourcemaps = require('gulp-sourcemaps');
-var sass = require('gulp-sass');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var postcss = require('gulp-postcss');
-var autoprefixer = require('autoprefixer');
-var cssnano = require('cssnano');
+const gulp = require('gulp');
+const sourcemaps = require('gulp-sourcemaps');
+const sass = require('gulp-sass');
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
+
+// Use dart-sass for @use
+sass.compiler = require('dart-sass');
 
 // Sass task: compiles the style.scss file into style.css
 gulp.task('sass', function(){
@@ -14,7 +17,7 @@ gulp.task('sass', function(){
         .pipe(sourcemaps.init())
         .pipe(sass()) // compile SCSS to CSS
         .pipe(postcss([ autoprefixer(), cssnano() ])) // PostCSS plugins
-        .pipe(sourcemaps.write('.'))
+        .pipe(sourcemaps.write('.')) // Write sourcemaps file
         .pipe(gulp.dest('dist')); // put final CSS in dist folder
 });
 
